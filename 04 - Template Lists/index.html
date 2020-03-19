@@ -14,6 +14,14 @@
   <!-- our template -->
   <section id="app" class="section container">
 
+    <ul class="user-list">
+      <li v-for="user in users">
+        <img width="200" height="200" v-bind:src="user.avatar"><br>
+        Name: {{ user.name }}<br>
+        Username: {{user.username }}<br>
+      </li>
+    </ul>
+
   </section>
 
   <!-- our javascript -->
@@ -35,12 +43,12 @@
         avatar: 'https://pbs.twimg.com/profile_images/926258409552297985/Vk18Dg9M_400x400.jpg'
       }
     ];
-
-    // plain javascript ===========================
-
     // vue =======================================================
     const app = new Vue({
-      el: '#app'
+      el: '#app',
+      data: {
+        users: users
+      }
     });
   </script>
 </body>

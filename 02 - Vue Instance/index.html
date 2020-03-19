@@ -13,12 +13,33 @@
 <body>
   
   <!-- our template -->
-  <section class="section container">
+  <section id="app" class="section container">
+    <p>
+      Name: {{ name }}<br>
+      Username: {{ username }}<br>
+      Email: {{ email }}
+    </p>
 
+    <a class="button is-info" v-on:click="celebrate">
+      Do the Celebration!
+    </a>
   </section>
 
   <!-- our javascript -->
   <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        name: 'Raphael Pion',
+        username: 'raphpion',
+        email: 'raph.pion@gmail.com'
+      },
+      methods: {
+        celebrate: function() {
+          alert(`${this.name} is celebrating!`);
+        }
+      }
+    });
   </script>
 </body>
 </html>

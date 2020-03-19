@@ -13,13 +13,29 @@
 <body>
   <!-- our template -->
   <section id="app" class="section container">
+    <!-- text interpolation -->
+    {{ avatar }}<br>
 
+    <!-- binding to attributes -->
+    <img height="300" width="300":src="avatar">
+
+    <div class="notification is-success" v-if="isSuccess">
+      we did it! successful!
+    </div>
+
+    <div class="notification is-danger" v-if="!isSuccess">
+      we did not do it. not successful
+    </div>
   </section>
 
   <!-- our javascript -->
   <script>
     const app = new Vue({
-      el: '#app'
+      el: '#app',
+      data: {
+        avatar: 'https://scontent.fymq2-1.fna.fbcdn.net/v/t1.0-9/p960x960/87817446_2548143705426707_3547898021654036480_o.jpg?_nc_cat=111&_nc_sid=85a577&_nc_ohc=viAsrUBDAhcAX9ddcUz&_nc_ht=scontent.fymq2-1.fna&_nc_tp=6&oh=6d1f8b0e518717a446ccb25a4f0f2750&oe=5E9A3050',
+        isSuccess: true
+      }
     });
   </script>
 </body>

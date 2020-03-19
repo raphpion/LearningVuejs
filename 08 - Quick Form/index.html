@@ -26,17 +26,29 @@
     <div class="box">
 
       <!-- our signup form ===================== -->
-      <form id="signup-form">
+      <form id="signup-form" @submit.prevent="processForm">
         <!-- name -->
         <div class="field">
           <label class="label">Name</label>
-          <input type="text" class="input" name="name">
+          <input 
+            type="text" class="input" 
+            name="name" 
+            v-model="name">
         </div>
 
         <!-- email -->
         <div class="field">
           <label class="label">Email</label>
-          <input type="email" class="input" name="email">
+          <input 
+            type="email" 
+            class="input" 
+            name="email" 
+            v-model="email"
+            @blur="validateEmail">
+
+        <p class="help is-danger" v-if="errors.email">
+          Please enter a valid email.
+        </p>
         </div>
 
         <!-- submit button -->
@@ -55,9 +67,48 @@
   <!-- our javascript -->
   <script>
     // plain javscript ==================================
+    // grab the things we need
+
+    // const signupForm = document.getElementById('signup-form');
+    // const nameInput = signupForm.querySelector('input[name=name]');
+    // const emailInput = signupForm.querySelector('input[name=email]');
+
+    // // listen for the submit event
+    // signupForm.addEventListener('submit', processSignupForm);
+    // function processSignupForm(e) {
+    //   e.preventDefault();
+
+    //   const name = nameInput.value;
+    //   const email = emailInput.value;
+
+    //   console.log({ name, email });
+    //   alert('Processing!');
+    //   }
 
     // vue ==========================================
+    var app = new Vue({
+    el: '#signup-form',
+    data: {
+      name: '',
+      email: '',
+      errors: {
+        name: false,
+        email: false
+      }
+    },
+    methods: {
+      processForm: function() {
+        console.log({ name: this.name, email: this.email });
+        alert('Processing');
+      },
+      validateEmail: function() {
+        const isValid = window.isValidEmail(this.email);
 
+        console.log(isValid);
+        this.errors.email = !isValid;
+      }
+    }
+    });
     // helpers ===============================================
     /**
      * Validate emails

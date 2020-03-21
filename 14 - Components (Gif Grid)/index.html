@@ -39,30 +39,18 @@
     <h2 class="title">Search</h2>
 
     <input type="text" class="input" name="query" v-model="query" @keyup="searchGifs">
-
-    <div class="columns is-multiline" v-if="searchedGifs">
-      <div class="column is-one-quarter" v-for="gif in searchedGifs">
-
-        <gif-box :gif="gif"></gif-box>
-
-      </div>
-    </div>
+    <gif-grid :gifs="searchedGifs"></gif-grid>
 
     <!-- TRENDING ======================================= -->
     <h2 class="title">Trending</h2>
-    <div class="columns is-multiline" v-if="trendingGifs">
-      <div class="column is-one-quarter" v-for="gif in trendingGifs">
 
-        <gif-box :gif="gif"></gif-box>
-
-      </div>
-    </div>
+    <gif-grid :gifs="trendingGifs"></gif-grid>
 
   </section>
 
   <!-- our javascript -->
   <script>
-    Vue.component('gif-box', {
+    const GifBox = {
       props: ['gif'],
       template: `
         <div class="gif-box">
@@ -78,12 +66,30 @@
           </a>
         </div>
       `
-    });
+    };
+
+    const GifGrid = {
+      props: ['gifs'],
+      components: {
+        'gif-box': GifBox
+      },
+      template: `
+        <div class="columns is-multiline" v-if="gifs">
+          <div class="column is-one-quarter" v-for="gif in gifs">
+
+          <gif-box :gif="gif"></gif-box>
+
+          </div>
+        </div>
+      `
+    };
 
 
     const app = new Vue({
       el: '#app',
-
+      components: {
+        'gif-grid': GifGrid
+      },
       data: {
         // test giphy api key
         // if the usage limit has been hit, visit https://developers.giphy.com to get a new one
